@@ -47,13 +47,11 @@ void OnDeinit(const int reason) {
 //+------------------------------------------------------------------+
 void OnTimer() {
    // Try to connect if not already connected
-   if(!g_isConnected) {
-      ConnectToPipe();
-   }
-   
+   if(!g_isConnected) { ConnectToPipe(); }
+
    // Process any pending messages
-   if(g_isConnected) {
-      ProcessPipeMessages();
+   if(g_isConnected) { 
+    ProcessPipeMessages();
    }
 }
 
@@ -216,8 +214,7 @@ string ProcessCommand(string command, string params) {
                 ",\"ask\":" + DoubleToString(ask, _Digits) + 
                 "},\"account_info\":{\"balance\":" + DoubleToString(balance, 2) + 
                 ",\"equity\":" + DoubleToString(equity, 2) + "}}}";
-   }
-   else if(command == "algo") {
+   } else if(command == "algo") {
       // Set algorithm parameters
       double range = GetParamDouble(params, "range");
       bool active = GetParamBool(params, "active");
@@ -243,8 +240,7 @@ string ProcessCommand(string command, string params) {
       }
       
       response = "{\"status\":\"success\",\"message\":\"Algorithm settings updated\"}";
-   }
-   else if(command == "limit") {
+   } else if(command == "limit") {
       // Place limit order
       double price = GetParamDouble(params, "price");
       double size = GetParamDouble(params, "size");
@@ -274,8 +270,7 @@ string ProcessCommand(string command, string params) {
          response = "{\"status\":\"error\",\"message\":\"Failed to place limit order: " + 
                    IntegerToString(result.retcode) + "\"}";
       }
-   }
-   else if(command == "mid_price") {
+   } else if(command == "mid_price") {
       // Place mid-price order
       double size = GetParamDouble(params, "size");
       string side = GetParamString(params, "side");
@@ -309,8 +304,7 @@ string ProcessCommand(string command, string params) {
          response = "{\"status\":\"error\",\"message\":\"Failed to place mid-price order: " + 
                    IntegerToString(result.retcode) + "\"}";
       }
-   }
-   else {
+   } else {
       response = "{\"status\":\"error\",\"message\":\"Unknown command: " + command + "\"}";
    }
    
@@ -322,12 +316,12 @@ string ProcessCommand(string command, string params) {
 //+------------------------------------------------------------------+
 bool SendToPipe(string data) {
    if(!g_isConnected) return false;
-   
+
    uchar buffer[];
    StringToCharArray(data, buffer);
    uint size = ArraySize(buffer);
-   
+
    uint bytesWritten = FileWriteArray(g_hPipe, buffer, 0, size);
-   
+
    return bytesWritten == size;
 }

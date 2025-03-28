@@ -104,7 +104,7 @@ class ManualMode:
             response = self.npipe.send_command("refresh")
         except Exception as e:
             print('Error: Failed sending message": {e} \n')
-            
+         
         if response.get("status") == "success":
             data = response.get("data", {})
             market_info = data.get("market_info", {})

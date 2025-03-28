@@ -52,8 +52,10 @@ class NamedPipe:
             print(f"Sent: {command}")
             
             # Receive response
-            result, data = win32file.ReadFile(self.pipe, 64*1024)
-            response = json.loads(data.decode('utf-8'))
+            data_tuple = win32file.ReadFile(self.pipe, 64*1024)
+            data = data_tuple[1]  # Extract the actual byte response
+
+            response = json.loads(data.decode('utf-8').rstrip("\x00"))
             print(f"Received: {response}")
             return response
         except Exception as e:
