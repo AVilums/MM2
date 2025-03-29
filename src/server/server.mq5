@@ -1,8 +1,7 @@
 //+------------------------------------------------------------------+
 //| MQL5 Python Communication Script                                 |
 //+------------------------------------------------------------------+
-#property copyright "Your Name"
-#property link      "Your Website"
+#property copyright "Arturs Vilums"
 #property version   "1.00"
 #property strict
 
@@ -13,7 +12,7 @@
 #define PIPE_BUFFER_SIZE 65536
 
 // Global variables
-int g_hPipe = -1;  // Invalid handle value
+int g_hPipe = -1; 
 bool g_isConnected = false;
 
 // JSON handling structures - simplified for MQL5
@@ -29,7 +28,7 @@ struct JSONValue {
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
 int OnInit() {
-   EventSetMillisecondTimer(1000); // Check for pipe connections every second
+   EventSetMillisecondTimer(1);
    Print("Python communication EA initialized. Waiting for pipe connection...");
    return(INIT_SUCCEEDED);
 }
