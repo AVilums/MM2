@@ -9,12 +9,7 @@ from models.market_data import MarketData
 
 class ManualMode:
     def __init__(self, config):
-        """
-        Initialize the Manual Mode GUI application.
-        
-        Args:
-            config: Config object containing application config
-        """
+        """ Initialize the Manual Mode GUI application. """
         self.logger = logging.getLogger(__name__)
         self.config = config
         
@@ -148,12 +143,7 @@ class ManualMode:
             time.sleep(self.data_refresh_interval)
 
     def refresh_market_data(self, show_messages=True):
-        """
-        Refresh market data from MQL5.
-        
-        Args:
-            show_messages: Whether to show success/error messages to the user
-        """
+        """ Refresh market data from MQL5. """
         try:
             response = self.npipe.send_command("refresh")
             
