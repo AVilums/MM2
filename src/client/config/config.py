@@ -15,16 +15,11 @@ class Config:
         "log_file": "mm2_client.log",
         "default_order_size": 0.01,
         "default_algo_range": 10,
-        "data_refresh_interval": 5,  # seconds
+        "data_refresh_interval": 10,  # seconds
     }
     
     def __init__(self, config_file: str = None):
-        """
-        Initialize configuration from file or defaults.
-        
-        Args:
-            config_file: Path to the configuration file
-        """
+        """ Initialize configuration from file or defaults. """
         self.logger = logging.getLogger(__name__)
         self.config_data = self.DEFAULT_CONFIG.copy()
         
@@ -66,15 +61,7 @@ class Config:
             self.logger.error(f"Error loading configuration: {e}")
     
     def save(self, config_file: str = None) -> bool:
-        """
-        Save current configuration to file.
-        
-        Args:
-            config_file: Path to save the configuration file, uses existing path if None
-            
-        Returns:
-            bool: True if saved successfully, False otherwise
-        """
+        """ Save current configuration to file. """
         target_file = config_file or self.config_file or "config.json"
         
         try:
