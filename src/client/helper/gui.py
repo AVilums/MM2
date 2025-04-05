@@ -146,7 +146,6 @@ class ManualMode:
         """ Refresh market data from MQL5. """
         try:
             response = self.npipe.send_command("refresh")
-            
             if response.get("status") == "success":
                 data = response.get("data", {})
                 

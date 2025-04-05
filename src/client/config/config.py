@@ -8,7 +8,7 @@ class Config:
     """Handles application configuration settings."""
     
     DEFAULT_CONFIG = {
-        "pipe_name": r'\\.\pipe\mql5_python_pipe',
+        "pipe_name": r'\\.\pipe\manualmode2',
         "retry_interval": 5,
         "max_retries": 3,
         "log_level": "INFO",
