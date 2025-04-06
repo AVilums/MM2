@@ -1,6 +1,7 @@
 # Compiled Object files
 *.ex5
-*.exe
 *.pyc
 __init__.py
 *.log
+/src/client/build
+*.spec
