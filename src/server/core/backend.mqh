@@ -36,31 +36,31 @@ class Backend {
             printf("Received params: %s", params);
 
             // Handle commands
-            string response = ProcessCommand(command, params);
+            string response = _ProcessCommand(command, params);
 
             npipe.Send(response);
         }
         return true;
     }
 
-    string ProcessCommand(string command, string params) {
+    string _ProcessCommand(string command, string params) {
         string response = "";
 
         switch (command) {
             case "refresh": // Get market and account info
-                response = refresh();
+                response = _refresh();
                 break;
 
             case "algo": // Set algorithm parameters
-                response = algo(params);
+                response = _algo(params);
                 break;
 
             case "limit": // Place limit order
-                response = limit(params);
+                response = _limit(params);
                 break;
 
             case "mid_price": // Place mid-price order
-                response = mid_price(params);
+                response = _mid_price(params);
                 break;
 
             default:
@@ -70,12 +70,15 @@ class Backend {
         return response;
     }
 
-    string refresh() {
+    string _refresh() {
         // Get market and account info
         double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);
         double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
         double balance = AccountInfoDouble(ACCOUNT_BALANCE);
         double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+
+        double risk_to_reward = 1.5;
+        
         
         string response = "{\"status\":\"success\",\"data\":{\"market_info\":{\"symbol\":\"" + _Symbol + 
                         "\",\"bid\":" + DoubleToString(bid, _Digits) + 
@@ -85,7 +88,7 @@ class Backend {
         return response;
     }
 
-    string algo(string params) {
+    string _algo(string params) {
         // Set algorithm parameters
         double range = json.GetParamDouble(params, "range");
         bool active = json.GetParamBool(params, "active");
@@ -94,7 +97,7 @@ class Backend {
         return response;
     }
 
-    string limit(string params) {
+    string _limit(string params) {
         // Place limit order
         double price = json.GetParamDouble(params, "price");
         double size = json.GetParamDouble(params, "size");
@@ -128,7 +131,7 @@ class Backend {
         return response;
     }
 
-    string mid_price(string params) {
+    string _mid_price(string params) {
         // Place mid-price order
         double size = json.GetParamDouble(params, "size");
         string side = json.GetParamString(params, "side");
